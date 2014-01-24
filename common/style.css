@@ -1,0 +1,21 @@
+body {
+   background-color: #111111;
+   color: #BBBBBB;
+}
+input {
+   background-color: #000000;
+   color: #0090D0;
+}
+a:link {
+   color:#1166BB;
+}
+a:visited {
+   color:#1188BB;
+}
+a:hover {
+   color:#666666;
+}
+a:active {
+   color:#DDDDDD;
+}
+
