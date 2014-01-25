@@ -174,3 +174,8 @@ BEGIN
    INSERT INTO email_queue (`from`,`to_group`,`subject`,`body`) VALUES (from_,(SELECT id FROM email_groups WHERE name = group_name_),subject_,body_);
 END ;;
 DELIMITER ;
+
+--
+-- Initial values
+--
+INSERT INTO `heartbeats` (`name`, `date`) VALUES ('automation.pl', now());
