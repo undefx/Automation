@@ -1,6 +1,6 @@
 <?php
 function DatabaseConnect() {
-   require($_SERVER['DOCUMENT_ROOT'] . '/settings.php');
+   require('settings.php');
    $dbh = mysql_connect($dbHost, $dbUser, $dbPass);
    if($dbh) {
       mysql_select_db($dbName, $dbh);
