@@ -179,3 +179,4 @@ DELIMITER ;
 -- Initial values
 --
 INSERT INTO `heartbeats` (`name`, `date`) VALUES ('automation.pl', now());
+INSERT INTO `sequence` (`name`, `value`) VALUES ('run_group', 0);
