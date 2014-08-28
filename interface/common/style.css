@@ -1,6 +1,10 @@
 body {
    background-color: #111111;
    color: #BBBBBB;
+   font-family: Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+}
+h1 {
+   text-align: center;
 }
 input {
    background-color: #000000;
