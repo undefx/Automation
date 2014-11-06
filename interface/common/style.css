@@ -22,4 +22,21 @@ a:hover {
 a:active {
    color:#DDDDDD;
 }
-
+table {
+   border-collapse: collapse;
+}
+td {
+   padding: 5px;
+}
+td.column_narrow {
+   max-width: 500px;
+}
+tr:nth-child(2n) {
+   background: #222;
+}
+tr:nth-child(2n+1) {
+   background: #333;
+}
+tr:nth-child(1) {
+   border-bottom: 1px solid #888;
+}

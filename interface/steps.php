@@ -25,10 +25,10 @@
       
       //List of steps
       ?><table>
-         <tr><th>id</th><th>name</th><th>flow_id</th><th>sql</th><th>cmd</th></tr><?php
+         <tr><th>id</th><th>name</th><th>flow_id</th><th class="column_narrow">sql</th><th class="column_narrow">cmd</th></tr><?php
          $steps = GetSteps();
          foreach($steps as $step) {
-            echo "<tr><td>{$step['id']}</td><td><a href=\"step_edit.php?id={$step['id']}\">{$step['name']}</a></td><td>{$step['flow_id']}</td><td>{$step['sql']}</td><td>{$step['cmd']}</td></tr>";
+            echo "<tr><td>{$step['id']}</td><td><a href=\"step_edit.php?id={$step['id']}\">{$step['name']}</a></td><td>{$step['flow_id']}</td><td class=\"column_narrow\">{$step['sql']}</td><td class=\"column_narrow\">{$step['cmd']}</td></tr>";
          }
       ?></table>
       
