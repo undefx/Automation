@@ -29,7 +29,7 @@ CREATE TABLE `email_queue` (
   `body` text NOT NULL,  -- 64 KiB
   `priority` double NOT NULL DEFAULT 0,
   `status` int(11) NOT NULL DEFAULT 0,
-  `datetime` datetime NOT NULL,
+  `timestamp` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
@@ -166,14 +166,14 @@ DELIMITER ;
 DELIMITER ;;
 CREATE PROCEDURE `SendEmail`(from_ VARCHAR(256), to_ VARCHAR(256), subject_ VARCHAR(1024), body_ TEXT, priority_ DOUBLE)
 BEGIN
-   INSERT INTO email_queue (`from`,`to`,`subject`,`body`,`priority`,`datetime`) VALUES (from_,to_,subject_,body_,priority_,now());
+   INSERT INTO email_queue (`from`,`to`,`subject`,`body`,`priority`,`timestamp`) VALUES (from_,to_,subject_,body_,priority_,UNIX_TIMESTAMP(NOW()));
 END ;;
 DELIMITER ;
 
 DELIMITER ;;
 CREATE PROCEDURE `SendGroupEmail`(from_ VARCHAR(256), group_name_ VARCHAR(256), subject_ VARCHAR(1024), body_ TEXT, priority_ DOUBLE)
 BEGIN
-   INSERT INTO email_queue (`from`,`to_group`,`subject`,`body`,`priority`,`datetime`) VALUES (from_,(SELECT id FROM email_groups WHERE name = group_name_),subject_,body_,priority_,now());
+   INSERT INTO email_queue (`from`,`to_group`,`subject`,`body`,`priority`,`timestamp`) VALUES (from_,(SELECT id FROM email_groups WHERE name = group_name_),subject_,body_,priority_,UNIX_TIMESTAMP(NOW()));
 END ;;
 DELIMITER ;
 
