@@ -9,7 +9,7 @@
       <?php
       //"Header" files
       require('./common/header.php');
-      
+
       //Load Step
       $id = mysql_real_escape_string($_REQUEST['id']);
       $step = GetStep($id);
@@ -20,7 +20,7 @@
          $flow_id = mysql_real_escape_string($_REQUEST['flow_id']);
          $sql = mysql_real_escape_string($_REQUEST['sql']);
          $cmd = mysql_real_escape_string($_REQUEST['cmd']);
-         
+
          if($action == 'Delete') {
             if(IsStepInUse($step['id'])) {
                echo "<p>Step is used by a flow or a task [id={$step['id']}]</p>";
@@ -38,7 +38,7 @@
             RunStep($step['id']);
             echo "<p>Added step to the run_stack [step_id={$step['id']}]</p>";
          }
-         
+
          //Reload the step
          $step = GetStep($id);
          if($step) {

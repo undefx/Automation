@@ -9,7 +9,7 @@
       <?php
       //"Header" files
       require('./common/header.php');
-      
+
       //Load Step
       $id = mysql_real_escape_string($_REQUEST['id']);
       $task = GetTask($id);
@@ -19,7 +19,7 @@
          $step_id = mysql_real_escape_string($_REQUEST['step_id']);
          $date = mysql_real_escape_string($_REQUEST['date']);
          $interval = mysql_real_escape_string($_REQUEST['interval']);
-         
+
          if($action == 'Delete') {
             DeleteTask($task['id']);
             echo "<p>Deleted task [id={$task['id']}]</p>";
@@ -30,7 +30,7 @@
                echo "<p>Warning: Step doesn't exist [id={$step_id}]</p>";
             }
          }
-         
+
          //Reload the task
          $task = GetTask($id);
          if($task) {

@@ -84,7 +84,7 @@ while(1) {
          }
       }
    }
-   
+
    #Run the next step on the stack
    if(!$select->execute()) {
       die("select didn't execute\n");
@@ -99,7 +99,7 @@ while(1) {
                die("Couldn't insert into run_log\n");
             }
             my $run_log_id = $insert->{'mysql_insertid'};
-            
+
             #The actual run
             my $return_code = 0;
             if($row->{flow_id}) {
@@ -109,7 +109,7 @@ while(1) {
             } elsif($row->{cmd}) {
                $return_code = RunCMD(ReplaceVariables($row->{cmd}));
             }
-            
+
             #Update the run_log with the result
             if($return_code == 0) {
                $update->execute('success',0,$run_log_id);
@@ -140,7 +140,7 @@ sub RunFlow($$) {
    my $flow_id = shift;
    my $error = 0;
    print("   Inserting flow...\n");
-   
+
    #Push all this flow's steps onto the run_stack
    if($getSteps->execute($flow_id)) {
       while(my $row = $getSteps->fetchrow_hashref()) {
@@ -152,7 +152,7 @@ sub RunFlow($$) {
    } else {
       ++$error;
    }
-   
+
    #Return result
    if(!$error) {
       print("   Success\n");
@@ -166,7 +166,7 @@ sub RunFlow($$) {
 sub RunSQL($) {
    my $sql = shift;
    print("   Running sql...\n");
-   
+
    #Execute SQL
    my $sth = $dbh->prepare($sql);
    if($sth->execute()) {
@@ -181,7 +181,7 @@ sub RunSQL($) {
 sub RunCMD($) {
    my $cmd = shift;
    print("   Running cmd...\n");
-   
+
    #Execute CMD
    my $return_code = system($cmd);
    if($return_code == 0) {
@@ -189,7 +189,7 @@ sub RunCMD($) {
    } else {
       printf("   Fail [cmd=%s]\n",$cmd);
    }
-   
+
    #Return code
    return $return_code;
 }

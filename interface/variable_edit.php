@@ -9,7 +9,7 @@
       <?php
       //"Header" files
       require('./common/header.php');
-      
+
       //Load Variable
       $id = mysql_real_escape_string($_REQUEST['id']);
       $variable = GetVariable($id);
@@ -18,7 +18,7 @@
          $action = $_REQUEST['action'];
          $name = mysql_real_escape_string($_REQUEST['name']);
          $value = mysql_real_escape_string($_REQUEST['value']);
-         
+
          if($action == 'Delete') {
             DeleteVariable($variable['id']);
             echo "<p>Deleted variable [id={$variable['id']}]</p>";
@@ -26,7 +26,7 @@
             UpdateVariable($variable['id'],$name,$value);
             echo "<p>Updated variable [name={$name}|value={$value}]</p>";
          }
-         
+
          //Reload the variable
          $variable = GetVariable($id);
          if($variable) {

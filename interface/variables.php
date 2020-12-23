@@ -9,7 +9,7 @@
       <?php
       //"Header" files
       require('./common/header.php');
-      
+
       //Add New Variable
       $name = mysql_real_escape_string($_REQUEST['name']);
       $value = mysql_real_escape_string($_REQUEST['value']);
@@ -17,7 +17,7 @@
          AddVariable($name,$value);
          echo "<p>Added variable [name={$name}|value={$value}]</p>";
       }
-      
+
       //List of variables
       ?><table>
          <tr><th>id</th><th>name</th><th>value</th></tr><?php
@@ -26,13 +26,13 @@
             echo "<tr><td>{$variable['id']}</td><td><a href=\"variable_edit.php?id={$variable['id']}\">[[{$variable['name']}]]</a></td><td>{$variable['value']}</td></tr>";
          }
       ?></table>
-      
+
       <form method="post">
          name=<input type="text" name="name" /><br />
          value=<input type="text" name="value" /><br />
          <input type="submit" value="Add Variable" />
       </form>
-      
+
       <?php
       //"Footer" files
       require('./common/footer.php');

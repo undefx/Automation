@@ -9,14 +9,14 @@
       <?php
       //"Header" files
       require('./common/header.php');
-      
+
       //Add New Flow
       $name = mysql_real_escape_string($_REQUEST['name']);
       if($name) {
          AddFlow($name);
          echo "<p>Added flow [name={$name}]</p>";
       }
-      
+
       //List of flows
       ?><table>
          <tr><th>id</th><th>name</th></tr><?php
@@ -25,12 +25,12 @@
             echo "<tr><td>{$flow['id']}</td><td><a href=\"flow_edit.php?id={$flow['id']}\">{$flow['name']}</a></td></tr>";
          }
       ?></table>
-      
+
       <form method="post">
          name=<input type="text" name="name" /><br />
          <input type="submit" value="Add Flow" />
       </form>
-      
+
       <?php
       //"Footer" files
       require('./common/footer.php');

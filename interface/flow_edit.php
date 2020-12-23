@@ -9,7 +9,7 @@
       <?php
       //"Header" files
       require('./common/header.php');
-      
+
       //Load Flow
       $id = mysql_real_escape_string($_REQUEST['id']);
       $flow = GetFlow($id);
@@ -19,7 +19,7 @@
          $name = mysql_real_escape_string($_REQUEST['name']);
          $step_id = mysql_real_escape_string($_REQUEST['step_id']);
          $flow_step_id = mysql_real_escape_string($_REQUEST['flow_step_id']);
-         
+
          if($action == 'Delete') {
             DeleteFlow($flow['id']);
             echo "<p>Deleted flow [id={$flow['id']}]</p>";
@@ -39,7 +39,7 @@
             MoveFlowStep($flow_step_id,($action == 'Move Down')?1:-1);
             echo "<p>Moved flow step [flow_step_id={$flow_step_id}]</p>";
          }
-         
+
          //Reload the flow
          $flow = GetFlow($id);
          if($flow) {

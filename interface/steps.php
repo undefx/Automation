@@ -9,7 +9,7 @@
       <?php
       //"Header" files
       require('./common/header.php');
-      
+
       //Add New Step
       $name = mysql_real_escape_string($_REQUEST['name']);
       $flow_id = mysql_real_escape_string($_REQUEST['flow_id']);
@@ -22,7 +22,7 @@
             echo "<p>Warning: Flow doesn't exist [id={$flow_id}]</p>";
          }
       }
-      
+
       //List of steps
       ?><table>
          <tr><th>id</th><th>name</th><th>flow_id</th><th class="column_narrow">sql</th><th class="column_narrow">cmd</th></tr><?php
@@ -31,7 +31,7 @@
             echo "<tr><td>{$step['id']}</td><td><a href=\"step_edit.php?id={$step['id']}\">{$step['name']}</a></td><td>{$step['flow_id']}</td><td class=\"column_narrow\">{$step['sql']}</td><td class=\"column_narrow\">{$step['cmd']}</td></tr>";
          }
       ?></table>
-      
+
       <form method="post">
          name=<input type="text" name="name" /><br />
          flow_id=<input type="text" name="flow_id" /><br />
@@ -39,7 +39,7 @@
          cmd=<input type="text" name="cmd" /><br />
          <input type="submit" value="Add Step" />
       </form>
-      
+
       <?php
       //"Footer" files
       require('./common/footer.php');

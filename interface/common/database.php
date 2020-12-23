@@ -84,7 +84,7 @@ function IsStepInUse($id) {
    } else {
       return true;
    }
-   
+
    $result = mysql_query("SELECT count(1) ct FROM tasks WHERE step_id={$id}");
    if($row = mysql_fetch_array($result)) {
       if($row['ct'] != 0) {
@@ -93,7 +93,7 @@ function IsStepInUse($id) {
    } else {
       return true;
    }
-   
+
    return false;
 }
 
