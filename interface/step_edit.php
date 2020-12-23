@@ -11,36 +11,36 @@
       require('./common/header.php');
 
       //Load Step
-      $id = mysql_real_escape_string($_REQUEST['id']);
-      $step = GetStep($id);
+      $id = mysqli_real_escape_string($dbh, $_REQUEST['id']);
+      $step = GetStep($dbh, $id);
       if($step) {
          //Do updates then reload the step
          $action = $_REQUEST['action'];
-         $name = mysql_real_escape_string($_REQUEST['name']);
-         $flow_id = mysql_real_escape_string($_REQUEST['flow_id']);
-         $sql = mysql_real_escape_string($_REQUEST['sql']);
-         $cmd = mysql_real_escape_string($_REQUEST['cmd']);
+         $name = mysqli_real_escape_string($dbh, $_REQUEST['name']);
+         $flow_id = mysqli_real_escape_string($dbh, $_REQUEST['flow_id']);
+         $sql = mysqli_real_escape_string($dbh, $_REQUEST['sql']);
+         $cmd = mysqli_real_escape_string($dbh, $_REQUEST['cmd']);
 
          if($action == 'Delete') {
-            if(IsStepInUse($step['id'])) {
+            if(IsStepInUse($dbh, $step['id'])) {
                echo "<p>Step is used by a flow or a task [id={$step['id']}]</p>";
             } else {
-               DeleteStep($step['id']);
+               DeleteStep($dbh, $step['id']);
                echo "<p>Deleted step [id={$step['id']}]</p>";
             }
          } elseif($action == 'Update' && $name && ($flow_id || $sql || $cmd)) {
-            UpdateStep($step['id'],$name,$flow_id,$sql,$cmd);
+            UpdateStep($dbh, $step['id'],$name,$flow_id,$sql,$cmd);
             echo "<p>Updated step [name={$name}|flow_id={$flow_id}|sql={$sql}|cmd={$cmd}]</p>";
-            if($flow_id && !GetFlow($flow_id)) {
+            if($flow_id && !GetFlow($dbh, $flow_id)) {
                echo "<p>Warning: Flow doesn't exist [id={$flow_id}]</p>";
             }
          } elseif($action == 'Run Step') {
-            RunStep($step['id']);
+            RunStep($dbh, $step['id']);
             echo "<p>Added step to the run_stack [step_id={$step['id']}]</p>";
          }
 
          //Reload the step
-         $step = GetStep($id);
+         $step = GetStep($dbh, $id);
          if($step) {
             echo "id={$step['id']}<br />";
             ?>

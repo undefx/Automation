@@ -5,5 +5,5 @@ $processingTime = $footerTime - $headerTime;
 echo '</div><hr /><div>' . sprintf('[%.1f sec]',$processingTime) . '</div>';
 
 //Close the connection to the database
-mysql_close($dbh);
+mysqli_close($dbh);
 ?>

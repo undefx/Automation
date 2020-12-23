@@ -17,6 +17,6 @@ $headerTime = microtime(true);
    $dbh = DatabaseConnect();
    $connectTime = microtime(true);
    if(!$dbh) {
-      echo '<p>Unable to connect to the database! [' . mysql_error() . ']</p>';
+      echo '<p>Unable to connect to the database! [' . mysqli_connect_errno() . ']</p>';
    }
    ?>

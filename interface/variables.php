@@ -11,17 +11,17 @@
       require('./common/header.php');
 
       //Add New Variable
-      $name = mysql_real_escape_string($_REQUEST['name']);
-      $value = mysql_real_escape_string($_REQUEST['value']);
+      $name = mysqli_real_escape_string($dbh, $_REQUEST['name']);
+      $value = mysqli_real_escape_string($dbh, $_REQUEST['value']);
       if($name && $value) {
-         AddVariable($name,$value);
+         AddVariable($dbh, $name,$value);
          echo "<p>Added variable [name={$name}|value={$value}]</p>";
       }
 
       //List of variables
       ?><table>
          <tr><th>id</th><th>name</th><th>value</th></tr><?php
-         $variables = GetVariables();
+         $variables = GetVariables($dbh);
          foreach($variables as $variable) {
             echo "<tr><td>{$variable['id']}</td><td><a href=\"variable_edit.php?id={$variable['id']}\">[[{$variable['name']}]]</a></td><td>{$variable['value']}</td></tr>";
          }

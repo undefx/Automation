@@ -9,6 +9,7 @@ $|=1;
 
 #Constants
 my $dbHost = '';
+my $dbPort = 3306;
 my $dbName = '';
 my $dbUser = '';
 my $dbPass = '';
@@ -21,7 +22,7 @@ sub ReplaceVariables($);
 
 #Connect to the database
 print("Attempting to connect to the database...\n");
-my $dbh = DBI->connect("dbi:mysql:$dbName:$dbHost",$dbUser,$dbPass);
+my $dbh = DBI->connect("dbi:mysql:$dbName:$dbHost:$dbPort",$dbUser,$dbPass);
 print("Connected\n");
 
 #Get the last step added in the oldest group (top of the first stack in the queue)

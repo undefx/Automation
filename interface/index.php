@@ -11,13 +11,13 @@
       require('./common/header.php');
       ?>
       <p>
-         Queued Emails: <?php echo GetEmailQueueSize(); ?>
+         Queued Emails: <?php echo GetEmailQueueSize($dbh); ?>
       </p>
       System Status
       <table>
          <tr><th>process</th><th>last update</th><th>delta</th></tr>
          <?php
-         $heartbeats = GetHeartbeats();
+         $heartbeats = GetHeartbeats($dbh);
          foreach($heartbeats as $heartbeat) {
             echo "<tr><td>{$heartbeat['name']}</td><td>{$heartbeat['date']}</td><td>{$heartbeat['delta']}</td></tr>";
          }
@@ -27,7 +27,7 @@
       <table>
          <tr><th>id</th><th>step_id</th><th>run_group</th><th>name</th></tr>
          <?php
-         $runs = GetRunStack();
+         $runs = GetRunStack($dbh);
          foreach($runs as $run) {
             echo "<tr><td>{$run['id']}</td><td>{$run['step_id']}</td><td>{$run['run_group']}</td><td>{$run['name']}</td></tr>";
          }
@@ -37,7 +37,7 @@
       <table>
          <tr><th>id</th><th>step_id</th><th>start_time</th><th>stop_time</th><th>delta</th><th>status</th><th>return_code</th><th>name</th></tr>
          <?php
-         $runs = GetActiveSteps();
+         $runs = GetActiveSteps($dbh);
          foreach($runs as $run) {
             echo "<tr><td>{$run['id']}</td><td>{$run['step_id']}</td><td>{$run['start_time']}</td><td>{$run['stop_time']}</td><td>{$run['delta']}</td><td>{$run['status']}</td><td>{$run['return_code']}</td><td>{$run['name']}</td></tr>";
          }
@@ -47,7 +47,7 @@
       <table>
          <tr><th>id</th><th>step_id</th><th>start_time</th><th>stop_time</th><th>delta</th><th>status</th><th>return_code</th><th>name</th></tr>
          <?php
-         $runs = GetRunLog();
+         $runs = GetRunLog($dbh);
          foreach($runs as $run) {
             echo "<tr><td>{$run['id']}</td><td>{$run['step_id']}</td><td>{$run['start_time']}</td><td>{$run['stop_time']}</td><td>{$run['delta']}</td><td>{$run['status']}</td><td>{$run['return_code']}</td><td>{$run['name']}</td></tr>";
          }

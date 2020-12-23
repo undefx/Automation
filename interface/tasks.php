@@ -11,13 +11,13 @@
       require('./common/header.php');
 
       //Add New Task
-      $step_id = mysql_real_escape_string($_REQUEST['step_id']);
-      $date = mysql_real_escape_string($_REQUEST['date']);
-      $interval = mysql_real_escape_string($_REQUEST['interval']);
+      $step_id = mysqli_real_escape_string($dbh, $_REQUEST['step_id']);
+      $date = mysqli_real_escape_string($dbh, $_REQUEST['date']);
+      $interval = mysqli_real_escape_string($dbh, $_REQUEST['interval']);
       if($step_id && $date) {
-         AddTask($step_id,$date,$interval);
+         AddTask($dbh, $step_id,$date,$interval);
          echo "<p>Added task [step_id={$step_id}|date={$date}|interval={$interval}]</p>";
-         if(!GetStep($step_id)) {
+         if(!GetStep($dbh, $step_id)) {
             echo "<p>Warning: Step doesn't exist [id={$step_id}]</p>";
          }
       }
@@ -27,7 +27,7 @@
       <table>
          <tr><th>id</th><th>step_id</th><th>date</th><th>interval</th><th>name</th></tr>
          <?php
-         $tasks = GetTasks();
+         $tasks = GetTasks($dbh);
          foreach($tasks as $task) {
             ?>
             <tr>

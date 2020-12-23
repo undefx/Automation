@@ -11,16 +11,16 @@
       require('./common/header.php');
 
       //Add New Flow
-      $name = mysql_real_escape_string($_REQUEST['name']);
+      $name = mysqli_real_escape_string($dbh, $_REQUEST['name']);
       if($name) {
-         AddFlow($name);
+         AddFlow($dbh, $name);
          echo "<p>Added flow [name={$name}]</p>";
       }
 
       //List of flows
       ?><table>
          <tr><th>id</th><th>name</th></tr><?php
-         $flows = GetFlows();
+         $flows = GetFlows($dbh);
          foreach($flows as $flow) {
             echo "<tr><td>{$flow['id']}</td><td><a href=\"flow_edit.php?id={$flow['id']}\">{$flow['name']}</a></td></tr>";
          }

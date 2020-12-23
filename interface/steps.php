@@ -11,14 +11,14 @@
       require('./common/header.php');
 
       //Add New Step
-      $name = mysql_real_escape_string($_REQUEST['name']);
-      $flow_id = mysql_real_escape_string($_REQUEST['flow_id']);
-      $sql = mysql_real_escape_string($_REQUEST['sql']);
-      $cmd = mysql_real_escape_string($_REQUEST['cmd']);
+      $name = mysqli_real_escape_string($dbh, $_REQUEST['name']);
+      $flow_id = mysqli_real_escape_string($dbh, $_REQUEST['flow_id']);
+      $sql = mysqli_real_escape_string($dbh, $_REQUEST['sql']);
+      $cmd = mysqli_real_escape_string($dbh, $_REQUEST['cmd']);
       if($name && ($flow_id || $sql || $cmd)) {
-         AddStep($name,$flow_id,$sql,$cmd);
+         AddStep($dbh, $name,$flow_id,$sql,$cmd);
          echo "<p>Added step [name={$name}|flow_id={$flow_id}|sql={$sql}|cmd={$cmd}]</p>";
-         if($flow_id && !GetFlow($flow_id)) {
+         if($flow_id && !GetFlow($dbh, $flow_id)) {
             echo "<p>Warning: Flow doesn't exist [id={$flow_id}]</p>";
          }
       }
@@ -26,7 +26,7 @@
       //List of steps
       ?><table>
          <tr><th>id</th><th>name</th><th>flow_id</th><th class="column_narrow">sql</th><th class="column_narrow">cmd</th></tr><?php
-         $steps = GetSteps();
+         $steps = GetSteps($dbh);
          foreach($steps as $step) {
             echo "<tr><td>{$step['id']}</td><td><a href=\"step_edit.php?id={$step['id']}\">{$step['name']}</a></td><td>{$step['flow_id']}</td><td class=\"column_narrow\">{$step['sql']}</td><td class=\"column_narrow\">{$step['cmd']}</td></tr>";
          }

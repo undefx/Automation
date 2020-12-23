@@ -11,28 +11,28 @@
       require('./common/header.php');
 
       //Load Step
-      $id = mysql_real_escape_string($_REQUEST['id']);
-      $task = GetTask($id);
+      $id = mysqli_real_escape_string($dbh, $_REQUEST['id']);
+      $task = GetTask($dbh, $id);
       if($task) {
          //Do updates then reload the task
          $action = $_REQUEST['action'];
-         $step_id = mysql_real_escape_string($_REQUEST['step_id']);
-         $date = mysql_real_escape_string($_REQUEST['date']);
-         $interval = mysql_real_escape_string($_REQUEST['interval']);
+         $step_id = mysqli_real_escape_string($dbh, $_REQUEST['step_id']);
+         $date = mysqli_real_escape_string($dbh, $_REQUEST['date']);
+         $interval = mysqli_real_escape_string($dbh, $_REQUEST['interval']);
 
          if($action == 'Delete') {
-            DeleteTask($task['id']);
+            DeleteTask($dbh, $task['id']);
             echo "<p>Deleted task [id={$task['id']}]</p>";
          } elseif($action == 'Update' && $step_id && $date) {
-            UpdateTask($task['id'],$step_id,$date,$interval);
+            UpdateTask($dbh, $task['id'],$step_id,$date,$interval);
             echo "<p>Updated task [step_id={$step_id}|date={$date}|interval={$interval}]</p>";
-            if(!GetStep($step_id)) {
+            if(!GetStep($dbh, $step_id)) {
                echo "<p>Warning: Step doesn't exist [id={$step_id}]</p>";
             }
          }
 
          //Reload the task
-         $task = GetTask($id);
+         $task = GetTask($dbh, $id);
          if($task) {
             echo "id={$task['id']}<br />";
             ?>

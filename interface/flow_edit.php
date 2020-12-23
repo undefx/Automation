@@ -11,39 +11,39 @@
       require('./common/header.php');
 
       //Load Flow
-      $id = mysql_real_escape_string($_REQUEST['id']);
-      $flow = GetFlow($id);
+      $id = mysqli_real_escape_string($dbh, $_REQUEST['id']);
+      $flow = GetFlow($dbh, $id);
       if($flow) {
          //Do updates then reload the flow
          $action = $_REQUEST['action'];
-         $name = mysql_real_escape_string($_REQUEST['name']);
-         $step_id = mysql_real_escape_string($_REQUEST['step_id']);
-         $flow_step_id = mysql_real_escape_string($_REQUEST['flow_step_id']);
+         $name = mysqli_real_escape_string($dbh, $_REQUEST['name']);
+         $step_id = mysqli_real_escape_string($dbh, $_REQUEST['step_id']);
+         $flow_step_id = mysqli_real_escape_string($dbh, $_REQUEST['flow_step_id']);
 
          if($action == 'Delete') {
-            DeleteFlow($flow['id']);
+            DeleteFlow($dbh, $flow['id']);
             echo "<p>Deleted flow [id={$flow['id']}]</p>";
          } elseif($action == 'Update' && $name) {
-            UpdateFlow($flow['id'],$name);
+            UpdateFlow($dbh, $flow['id'],$name);
             echo "<p>Updated flow [id={$flow['id']}|name={$flow['name']}]</p>";
          } elseif($action == 'Add Step' && $step_id) {
-            AddFlowStep($flow['id'],$step_id,count(GetFlowSteps($flow['id'])) + 1);
+            AddFlowStep($dbh, $flow['id'],$step_id,count(GetFlowSteps($dbh, $flow['id'])) + 1);
             echo "<p>Added flow step [flow_id={$flow['id']}|step_id={$step_id}]</p>";
-            if(!GetStep($step_id)) {
+            if(!GetStep($dbh, $step_id)) {
                echo "<p>Warning: Step doesn't exist [id={$step_id}]</p>";
             }
          } elseif($action == 'Remove' && $flow_step_id) {
-            DeleteFlowStep($flow_step_id);
+            DeleteFlowStep($dbh, $flow_step_id);
             echo "<p>Removed flow step [flow_step_id={$flow_step_id}]</p>";
          } elseif(($action == 'Move Down' || $action == 'Move Up') && $flow_step_id) {
-            MoveFlowStep($flow_step_id,($action == 'Move Down')?1:-1);
+            MoveFlowStep($dbh, $flow_step_id,($action == 'Move Down')?1:-1);
             echo "<p>Moved flow step [flow_step_id={$flow_step_id}]</p>";
          }
 
          //Reload the flow
-         $flow = GetFlow($id);
+         $flow = GetFlow($dbh, $id);
          if($flow) {
-            $flowSteps = GetFlowSteps($flow['id']);
+            $flowSteps = GetFlowSteps($dbh, $flow['id']);
             echo "id={$flow['id']}<br />";
             ?>
             <form method="post">
@@ -56,7 +56,7 @@
                      <tr><th>id</th><th>flow_id</th><th>step_id</th><th>index</th><th>name</th><th>selected</th></tr>
                      <?php
                      foreach($flowSteps as $flowStep) {
-                        $step = GetStep($flowStep['step_id']);
+                        $step = GetStep($dbh, $flowStep['step_id']);
                         ?>
                         <tr>
                            <td><?php echo $flowStep['id']; ?></td>

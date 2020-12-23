@@ -11,24 +11,24 @@
       require('./common/header.php');
 
       //Load Variable
-      $id = mysql_real_escape_string($_REQUEST['id']);
-      $variable = GetVariable($id);
+      $id = mysqli_real_escape_string($dbh, $_REQUEST['id']);
+      $variable = GetVariable($dbh, $id);
       if($variable) {
          //Do updates then reload the variable
          $action = $_REQUEST['action'];
-         $name = mysql_real_escape_string($_REQUEST['name']);
-         $value = mysql_real_escape_string($_REQUEST['value']);
+         $name = mysqli_real_escape_string($dbh, $_REQUEST['name']);
+         $value = mysqli_real_escape_string($dbh, $_REQUEST['value']);
 
          if($action == 'Delete') {
-            DeleteVariable($variable['id']);
+            DeleteVariable($dbh, $variable['id']);
             echo "<p>Deleted variable [id={$variable['id']}]</p>";
          } elseif($action == 'Update' && $name && $value) {
-            UpdateVariable($variable['id'],$name,$value);
+            UpdateVariable($dbh, $variable['id'],$name,$value);
             echo "<p>Updated variable [name={$name}|value={$value}]</p>";
          }
 
          //Reload the variable
-         $variable = GetVariable($id);
+         $variable = GetVariable($dbh, $id);
          if($variable) {
             echo "id={$variable['id']}<br />";
             ?>
